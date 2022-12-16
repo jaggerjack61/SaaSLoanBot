@@ -64,7 +64,7 @@ class MultimediaMessageService
 
         $response = $client->request('GET', $url, [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->webhookToken(),
+                'Authorization' => 'Bearer '.$this->config->getToken(),
                 'Cache-Control' => 'no-cache',
                 'Content-Type' => 'application/jpeg'
             ],
