@@ -61,6 +61,12 @@ class ButtonMessageService
 
     }
 
+    public function getMessage()
+    {
+        $message=$this->data['entry'][0]['changes'][0]['value']['messages'][0]['interactive']['button_reply']['id'];
+        return $message;
+    }
+
     public function handle()
     {
 

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use GuzzleHttp\Client;
+
 class ListMessageService
 {
     public $data,$config,$receiver;
@@ -64,6 +66,13 @@ class ListMessageService
         $request = new \GuzzleHttp\Psr7\Request('POST', 'https://graph.facebook.com/v14.0/'.$this->config->getPhoneId().'/messages', $headers, $body);
         $res = $client->sendAsync($request)->wait();
         echo $res->getBody();
+    }
+
+
+    public function getMessage()
+    {
+        $message=$this->data['entry'][0]['changes'][0]['value']['messages'][0]['interactive']['list_reply']['id'];
+        return $message;
     }
 
 
