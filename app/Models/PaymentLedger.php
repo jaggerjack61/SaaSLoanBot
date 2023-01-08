@@ -10,4 +10,9 @@ class PaymentLedger extends Model
     use HasFactory;
 
     protected $guarded=[];
+
+    public function loan()
+    {
+        return $this->belongsTo(LoanHistory::class,'loan_id');
+    }
 }

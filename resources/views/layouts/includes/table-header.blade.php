@@ -41,8 +41,8 @@
                             <div class="d-flex">
 
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">User Name</span>
-                                    <small class="text-muted">User Level</small>
+                                    <span class="fw-semibold d-block">{{auth()->user()->name}}</span>
+                                    <small class="text-muted">{{auth()->user()->email}}</small>
                                 </div>
                             </div>
                         </a>

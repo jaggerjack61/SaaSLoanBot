@@ -35,7 +35,7 @@
                                     <td>{{$result->EC}}</td>
                                     <td>{{$result->bank}}</td>
                                     <td>{{$result->account_number}}</td>
-                                    <td>{{$result->handle_by}}</td>
+                                    <td>{{$result->handler->name}}</td>
                                     <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewCustomerModal" onclick="
                                         loadImages('{{$result->phone_no}}')">View</button>
                                         <button class="btn btn-danger" wire:click="deny('{{$result->id}}')">Deny</button>

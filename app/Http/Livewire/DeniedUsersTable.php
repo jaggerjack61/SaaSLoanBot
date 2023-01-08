@@ -13,7 +13,7 @@ class DeniedUsersTable extends Component
     use withPagination,LivewireAlert;
 
     public $search='';
-    private $sender;
+    protected $sender;
 
     public function mount()
     {
@@ -28,7 +28,8 @@ class DeniedUsersTable extends Component
             ->orWhere('bank','LIKE','%'.$this->search.'%')
             ->orWhere('account_number','LIKE','%'.$this->search.'%')
             ->orWhere('phone_no','LIKE','%'.$this->search.'%')
-            ->paginate(100);
+            ->orWhereHas('handler', function($query){$query->where('name', 'like', '%'.$this->search.'%');})
+            ->paginate(30);
         return view('livewire.denied-users-table',compact('results'));
     }
 
@@ -40,8 +41,12 @@ class DeniedUsersTable extends Component
             'handled_by'=>auth()->user()->id]);
 
         $customer->save();
-        $this->alert('success','User has been successfully registered');
-
-        $this->sender->sendMsgTemplate($customer->phone_no,'account_status','registered');
+        $this->alert('success','User has been successfully registered',[
+            'position' => 'center',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
+        $sender= new SendMessageService();
+        $sender->sendMsgTemplate($customer->phone_no,'account_status','registered');
     }
 }

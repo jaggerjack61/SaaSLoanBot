@@ -90,7 +90,7 @@ class ListMessageService
                 ->where('status','in-progress')
                 ->latest()
                 ->first();
-            $loan->due_date='1 month';
+            $loan->due_date='1';
             $loan->status='pending';
             $loan->save();
             $text->send('Your loan application is pending approval.');
@@ -101,7 +101,7 @@ class ListMessageService
                 ->where('status','in-progress')
                 ->latest()
                 ->first();
-            $loan->due_date='2 months';
+            $loan->due_date='2';
             $loan->status='pending';
             $loan->save();
             $text->send('Your loan application is pending approval.');
@@ -112,7 +112,7 @@ class ListMessageService
                 ->where('status','in-progress')
                 ->latest()
                 ->first();
-            $loan->due_date='3 months';
+            $loan->due_date='3';
             $loan->status='pending';
             $loan->save();
             $text->send('Your loan application is pending approval.');
@@ -123,7 +123,7 @@ class ListMessageService
                 ->where('status','in-progress')
                 ->latest()
                 ->first();
-            $loan->due_date='4 months';
+            $loan->due_date='4';
             $loan->status='pending';
             $loan->save();
             $text->send('Your loan application is pending approval.');
@@ -134,7 +134,7 @@ class ListMessageService
                 ->where('status','in-progress')
                 ->latest()
                 ->first();
-            $loan->due_date='5 months';
+            $loan->due_date='5';
             $loan->status='pending';
             $loan->save();
             $text->send('Your loan application is pending approval.');
@@ -145,7 +145,7 @@ class ListMessageService
                 ->where('status','in-progress')
                 ->latest()
                 ->first();
-            $loan->due_date='6 months';
+            $loan->due_date='6';
             $loan->status='pending';
             $loan->save();
             $text->send('Your loan application is pending approval.');

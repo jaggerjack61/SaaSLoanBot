@@ -10,4 +10,9 @@ class Customer extends Model
     use HasFactory;
 
     protected $guarded=[];
+
+    public function handler()
+    {
+        return $this->belongsTo(User::class,'handled_by');
+    }
 }
