@@ -4,7 +4,7 @@
 
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Approved /</span> Loans</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pending /</span> Users</h4>
 
             <!-- Basic Bootstrap Table -->
 
@@ -12,7 +12,7 @@
 
             <!-- Hoverable Table rows -->
             <div class="card">
-                <h5 class="card-header">Loans</h5>
+                <h5 class="card-header">Users</h5>
                 <div class="table-responsive text-nowrap">
                     <table class="table table-hover">
                         <thead>
@@ -36,17 +36,16 @@
                                                 @php
                                                     $total=0;
                                                 @endphp
-                                                @if($result->payments)
-                                                    @foreach($result->payments as $pay)
-
+                                                @for($i = 1; $i <= 1; $i++)
+                                                    @foreach($payments as $payment)
+                                                        @if($result->id==$payment->loan_id)
                                                             @php
-                                                                $total+=$pay->amount;
+                                                                $total+=$payment->amount;
                                                             @endphp
-
+                                                        @endif
                                                     @endforeach
-                                                @endif
-
-                                                {{$total.' '.$result->currency.$result->payments->count()}}
+                                                @endfor
+                                                {{$total.' '.$result->currency}}
                                             </td>
                                             <td>{{date('Y-m-d', strtotime("+".$result->due_date." months", strtotime($result->updated_at)))}}</td>
                                             <td>{{strtoupper($result->handler->name)}}</td>
@@ -92,7 +91,6 @@
 
         <div class="content-backdrop fade"></div>
     </div>
-
     <div wire:ignore.self class="modal fade" id="viewPaymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -164,4 +162,5 @@
             </div>
         </div>
     </div>
+
 </div>

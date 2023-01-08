@@ -29,7 +29,8 @@ class ApprovedLoansTable extends Component
             ->orWhereHas('owner', function($query){$query->where('name', 'like', '%'.$this->search.'%');})
             ->orWhereHas('handler', function($query){$query->where('name', 'like', '%'.$this->search.'%');})
             ->paginate();
-        return view('livewire.approved-loans-table',compact('results'));
+        $payments=PaymentLedger::all();
+        return view('livewire.approved-loans-table',compact('results','payments'));
     }
 
 
