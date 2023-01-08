@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('whatsapp_messages', function (Blueprint $table) {
+        Schema::create('payment_ledgers', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_id');
-            $table->string('message');
-            $table->string('message_type')->default('none');
+            $table->string('loan_id');
+            $table->string('amount');
+            $table->string('notes')->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('whatsapp_messages');
+        Schema::dropIfExists('payment_ledgers');
     }
 };

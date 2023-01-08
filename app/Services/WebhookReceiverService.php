@@ -11,37 +11,41 @@ class WebhookReceiverService
 {
     public $phone;
 
-    public function receiver(Request $request)
+    public function receive($request)
     {
         $data = $request->all();
+
 
         if(array_key_exists('messages',$data['entry'][0]['changes'][0]['value'])){
 
             if(array_key_exists('text',$data['entry'][0]['changes'][0]['value']['messages'][0])){
+                $this->checkCustomer($data);
                 $textService = new TextMessageService($data);
                 $textService->handle();
+
 
             }
             elseif(array_key_exists('interactive',$data['entry'][0]['changes'][0]['value']['messages'][0])) {
                 if (array_key_exists('button_reply', $data['entry'][0]['changes'][0]['value']['messages'][0]['interactive'])) {
-                    $this->handleResponse($data);
+                    $button = new ButtonMessageService($data);
+                    $button->handle();
 
                 }
                 elseif(array_key_exists('list_reply', $data['entry'][0]['changes'][0]['value']['messages'][0]['interactive'])) {
-                    $this->handleList($data);
+                    $list = new ListMessageService($data);
+                    $list->handle();
+
 
                 }
             }
             elseif(array_key_exists('image',$data['entry'][0]['changes'][0]['value']['messages'][0])) {
-                $this->handleImage($data);
+                $media = new MultimediaMessageService($data);
+                $media->handle();
 
             }
 
         }
-        elseif(array_key_exists('statuses',$data['entry'][0]['changes'][0]['value']))
-        {
-            $this->handleStatus($data);
-        }
+
 
 
 
@@ -54,7 +58,8 @@ class WebhookReceiverService
         $customer=Customer::where('phone_no',$phoneNo)->first();
         if(!$customer){
             Customer::create([
-                'phone_no' => $this->phone
+                'phone_no' => $phoneNo,
+                'name'=>$data['entry'][0]['changes'][0]['value']['contacts'][0]['profile']['name']
             ]);
         }
     }

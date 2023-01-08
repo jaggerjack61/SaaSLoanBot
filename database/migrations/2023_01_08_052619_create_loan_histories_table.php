@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('loan_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('phone_no')->unique();
-            $table->string('EC')->nullable();
-            $table->string('bank')->nullable();
-            $table->string('account_number')->nullable();
-            $table->string('status')->default('guest');
+            $table->string('customer_id');
+            $table->string('amount')->nullable();
+            $table->string('currency')->default('RTGS');
+            $table->string('due_date')->nullable();
+            $table->string('status')->default('in-progress');
             $table->string('handled_by')->nullable();
-            $table->string('message_status')->default('none');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('loan_histories');
     }
 };

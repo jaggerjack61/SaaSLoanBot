@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Customer;
 use GuzzleHttp\Client;
 
 class MultimediaMessageService
@@ -30,7 +31,30 @@ class MultimediaMessageService
 
     public function handle()
     {
-
+        $customer=Customer::where('phone_no',$this->receiver->getNumber($this->data))->first();
+        $mediaId = $this->data['entry'][0]['changes'][0]['value']['messages'][0]['image']['id'];
+        $button = new ButtonMessageService($this->data);
+        $url = $this->retrieveMediaUrl($mediaId);
+        if($customer->message_status == 'register_id'){
+            $this->downloadMedia($url,'id');
+            $customer->message_status='register_payslip';
+            $customer->save();
+            $button->send([$this->config->getCompany(),'Please send us a picture of your most recent payslip.','Registration'],[
+                    ['id'=>'cancel','title'=>'Cancel']]
+            );
+        }
+        elseif($customer->message_status == 'register_payslip'){
+            $this->downloadMedia($url,'payslip');
+            $customer->message_status='register_bank';
+            $customer->save();
+            $button->send([$this->config->getCompany(),'Please enter the name of your bank in full.','Registration'],[
+                ['id'=>'cancel','title'=>'Cancel']]
+            );
+        }
+        else{
+            $text = new TextMessageService($this->data);
+            $text->send('Nice picture media file, but please use the supplied buttons to proceed');
+        }
     }
 
     public function retrieveMediaUrl($id)
@@ -51,16 +75,19 @@ class MultimediaMessageService
 
     }
 
-    public function downloadMedia($url,$name,$extension)
+    public function downloadMedia($url,$name)
     {
 
 
         $client = new Client();
-        if(!(file_exists('downloads/'))){
-            mkdir('downloads/',0755, true);
+        if(!(file_exists('customers/'))){
+            mkdir('customers/',0755, true);
+        }
+        if(!(file_exists('customers/'.$this->receiver->getNumber($this->data).'/'))){
+            mkdir('customers/'.$this->receiver->getNumber($this->data).'/',0755, true);
         }
 
-        $resource = fopen('downloads/'.$name.$extension, 'w');
+        $resource = fopen('customers/'.$this->receiver->getNumber($this->data).'/'.$name.'.jpg', 'w');
 
         $response = $client->request('GET', $url, [
             'headers' => [

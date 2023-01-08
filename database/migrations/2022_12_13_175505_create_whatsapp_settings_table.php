@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('whatsapp_settings', function (Blueprint $table) {
             $table->id();
+            $table->string('bearer_token');
+            $table->string('whatsapp_id');
+            $table->string('company_name');
             $table->timestamps();
         });
     }

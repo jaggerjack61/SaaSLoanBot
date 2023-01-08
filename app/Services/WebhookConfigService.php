@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class WebhookConfigService
 {
-    public function verify(Request $request)
+    public function verify($request)
     {
         $mode=$request->hub_mode;
         $token=$request->hub_verify_token;
         $challenge=$request->hub_challenge;
         if($mode and $token){
-            return response ($challenge, 200);
+            return response ([$challenge, 200]);
         }
         return response('',404);
     }
@@ -27,17 +27,17 @@ class WebhookConfigService
     public function getPhoneId()
     {
         $settings=WhatsappSetting::first();
-        return $settings->phone_id;
+        return $settings->whatsapp_id;
     }
 
 
 
 
 
-    public function getBusiness()
+    public function getCompany()
     {
         $settings=WhatsappSetting::first();
-        return $settings->business_name;
+        return $settings->company_name;
     }
 }
 

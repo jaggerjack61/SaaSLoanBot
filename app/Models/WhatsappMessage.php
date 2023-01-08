@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class WhatsappMessage extends Model
 {
     use HasFactory;
+
+    protected $guarded=[];
 }
