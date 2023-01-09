@@ -26,6 +26,9 @@ Route::controller(AuthController::class)->group(function(){
 
 });
 Route::controller(MainController::class)->middleware('auth')->group(function(){
+
+    Route::get('dashboard','showDashboard')->name('dashboard');
+
     Route::prefix('pending')->group(function(){
         Route::get('users','showPendingUsers')->name('pending-users');
         Route::get('loans','showPendingLoans')->name('pending-loans');

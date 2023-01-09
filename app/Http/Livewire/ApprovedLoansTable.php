@@ -57,7 +57,6 @@ class ApprovedLoansTable extends Component
     public function setLoanId($loanId)
     {
         $this->loanId = $loanId;
-//        $this->renderState=0;
     }
 
     public function payLoan()

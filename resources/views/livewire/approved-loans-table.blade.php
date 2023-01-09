@@ -4,7 +4,7 @@
 
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pending /</span> Users</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Approved /</span> Loans</h4>
 
             <!-- Basic Bootstrap Table -->
 
@@ -12,7 +12,7 @@
 
             <!-- Hoverable Table rows -->
             <div class="card">
-                <h5 class="card-header">Users</h5>
+                <h5 class="card-header">{{$results->where('status','approved')->count()}} Loans</h5>
                 <div class="table-responsive text-nowrap">
                     <table class="table table-hover">
                         <thead>

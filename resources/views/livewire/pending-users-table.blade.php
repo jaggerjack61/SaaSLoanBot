@@ -12,7 +12,7 @@
 
             <!-- Hoverable Table rows -->
             <div class="card">
-                <h5 class="card-header">Users</h5>
+                <h5 class="card-header">{{$results->where('status','pending')->count()}} Users</h5>
                 <div class="table-responsive text-nowrap">
                     <table class="table table-hover">
                         <thead>
