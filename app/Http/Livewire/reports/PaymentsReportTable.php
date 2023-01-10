@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class PaymentsReportTable extends Component
 {
-    public $currency='none';
+    public $currency='';
     public $start='';
     public $end='';
 

@@ -200,17 +200,12 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="tables-basic.html" class="menu-link">
+                    <a href="{{route('show-loans-report')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-abacus"></i>
-                        <div data-i18n="Tables">Total Income</div>
+                        <div data-i18n="Tables">Loans Report</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="tables-basic.html" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-abacus"></i>
-                        <div data-i18n="Tables">Loan Summaries</div>
-                    </a>
-                </li>
+
 
 
 

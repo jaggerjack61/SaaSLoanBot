@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function(){
     Route::controller(ReportsController::class)->group(function(){
         Route::prefix('reports')->group(function(){
             Route::get('payments','showPayments')->name('show-payments-report');
-            Route::get('loans','showLoans')->name('show-loans');
+            Route::get('loans','showLoans')->name('show-loans-report');
 
         });
     });

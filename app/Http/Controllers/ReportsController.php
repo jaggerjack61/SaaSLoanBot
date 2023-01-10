@@ -10,4 +10,9 @@ class ReportsController extends Controller
     {
         return view('pages.reports.payments');
     }
+
+    public function showLoans()
+    {
+        return view('pages.reports.loans');
+    }
 }

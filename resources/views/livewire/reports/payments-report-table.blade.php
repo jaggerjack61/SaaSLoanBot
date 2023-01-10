@@ -36,10 +36,14 @@
                                 <td>{{$result->created_at}}</td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <td>Total:${{$results->sum('amount').' '.$currency}}</td>
+                        </tr>
                         </tbody>
 
 
                     </table>
+
 
 
                 </div>

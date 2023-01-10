@@ -14,7 +14,7 @@
             <label for="html5-date-input" class="col-md-1 col-form-label">Currency</label>
             <div class="col-md-3">
                 <select class="form-control" wire:model="currency">
-                    <option value="none">None</option>
+                    <option value="">None</option>
                     <option value="USD">USD</option>
                     <option value="RTGS">ZWL/RTGS</option>
                 </select>
