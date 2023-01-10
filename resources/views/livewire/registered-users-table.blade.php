@@ -39,6 +39,7 @@
                                     <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewCustomerModal" onclick="
                                         loadImages('{{$result->phone_no}}')">View</button>
                                         <button class="btn btn-danger" wire:click="deny('{{$result->id}}')">Deny</button>
+                                        <a href="{{route('view-user',[$result->id])}}" class="btn btn-success">Details</a>
                                     </td>
 
                                 </tr>

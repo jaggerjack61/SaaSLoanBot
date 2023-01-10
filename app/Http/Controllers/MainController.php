@@ -71,4 +71,10 @@ class MainController extends Controller
     {
         return view('pages.loans.defaulted');
     }
+    public function viewUser(Customer $customer)
+    {
+        $results=LoanHistory::where('customer_id',$customer->id)->get();
+        $payments=PaymentLedger::all();
+        return view('pages.users.view',compact('customer','payments','results'));
+    }
 }

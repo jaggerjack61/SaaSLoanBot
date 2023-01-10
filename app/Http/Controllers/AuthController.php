@@ -29,7 +29,7 @@ class AuthController extends Controller
             }
             //$request->session()->regenerate();
             //dd('here');
-            return redirect()->route('pending-users');
+            return redirect()->route('dashboard');
         }
 
         return back()->with('error','Wrong email or password');

@@ -64,6 +64,7 @@
                                         <a href="#"  class="btn btn-sm btn-primary">Please Wait...</a>
                                     </span>
                                                 <a href="#" wire:click="viewLoan('{{$result->id}}')" data-bs-toggle="modal" data-bs-target="#viewPaymentModal" class="btn btn-sm btn-primary">View</a>
+
                                             </td>
 
                                         </tr>

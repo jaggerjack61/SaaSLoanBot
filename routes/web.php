@@ -49,6 +49,11 @@ Route::middleware('auth')->group(function(){
             Route::get('loans','showDeniedLoans')->name('denied-loans');
         });
 
+        Route::prefix('view')->group(function(){
+            Route::get('user/{customer}','viewUser')->name('view-user');
+
+        });
+
         Route::get('completed/loans','showCompletedLoans')->name('completed-loans');
         Route::get('defaulted/loans','showDefaultedLoans')->name('defaulted-loans');
 

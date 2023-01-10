@@ -16,7 +16,7 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Loans Report</title>
+    <title>View User</title>
 
     <meta name="description" content="" />
 
@@ -199,7 +199,7 @@
                         <div data-i18n="Tables">Payments Report</div>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{route('show-loans-report')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-abacus"></i>
                         <div data-i18n="Tables">Loans Report</div>
@@ -216,10 +216,105 @@
         <!-- Layout container -->
         <div class="layout-page">
 
+            @include('layouts.includes.table-header-basic')
 
+
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">View /</span> User</h4>
 
             <!-- Content -->
-            <livewire:reports.loans-report-table />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{$customer->name}}</h5>
+                                        <div class="card-subtitle text-muted mb-3">{{$customer->phone_no}}</div>
+                                        <p class="card-text">
+
+                                        </p>
+                                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#viewCustomerModal" onclick="
+                                        loadImages('{{$customer->phone_no}}')" class="card-link">View ID and Payslip</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <h5 class="card-header">{{$results->where('status','paid')->count()}} Loans </h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th>Loan Amount</th>
+                                                <th>Paid</th>
+                                                <th>Status</th>
+                                                <th>Handled By</th>
+                                                <th>Action</th>
+
+
+
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {{--                        {{dd($results)}}--}}
+                                            @foreach($results as $result)
+                                                @if($result->status == 'paid')
+                                                    <tr>
+
+                                                        <td>{{$result->amount.' '.$result->currency}}</td>
+                                                        <td>
+                                                            @php
+                                                                $total=0;
+                                                            @endphp
+                                                            @for($i = 1; $i <= 1; $i++)
+                                                                @foreach($payments as $payment)
+                                                                    @if($result->id==$payment->loan_id)
+                                                                        @php
+                                                                            $total+=$payment->amount;
+                                                                        @endphp
+                                                                    @endif
+                                                                @endforeach
+                                                            @endfor
+                                                            {{$total.' '.$result->currency}}
+                                                        </td>
+                                                        <td>@if($result->status=='approved')
+                                                                In Progress
+                                                            @elseif($result->status=='paid')
+                                                                Complete
+                                                            @else
+                                                                {{$result->status}}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            {{$result->handler->name}}
+                                                        </td>
+
+
+                                                        <td><a href="#" data-bs-toggle="modal" data-bs-target="#viewPaymentModal{{$result->id}}" class="btn btn-sm btn-primary">View</a></td>
+
+
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                            </tbody>
+
+
+                                        </table>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                </div>
+            </div>
 
 
             <!-- Content wrapper -->
@@ -231,6 +326,75 @@
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 
+@foreach($results as $result)
+    <div class="modal fade" id="viewPaymentModal{{$result->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Note</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($payments->where('loan_id',$result->id) as $payment)
+                                <tr>
+                                    <td>{{$payment->amount}}</td>
+                                    <td>{{$payment->notes}}
+                                    <td>{{$payment->created_at}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div wire:loading wire:target="viewLoan">
+                        <h3>Please wait....</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+@endforeach
+
+<div class="modal fade" id="viewCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4>Identification</h4>
+                <div class="row">
+                    <img id="identification" />
+                    <h4>Payslip</h4>
+                </div>
+                <div class="row">
+                    <img id="payslip" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- / Layout wrapper -->
+
+<script>
+    function loadImages(number){
+        document.getElementById('identification').src='/customers/'+number+'/id.jpg';
+        document.getElementById('payslip').src='/customers/'+number+'/payslip.jpg';
+    }
+</script>
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
@@ -252,9 +416,6 @@
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-@livewireScripts
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<x-livewire-alert::scripts />
 </body>
 </html>

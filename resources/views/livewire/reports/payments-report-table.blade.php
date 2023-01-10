@@ -8,7 +8,7 @@
 
             <!-- Basic Bootstrap Table -->
 
-            @include('layouts.includes.time-period-loans')
+            @include('layouts.includes.time-period-payments')
 
             <!-- Hoverable Table rows -->
             <div class="card">
@@ -36,9 +36,11 @@
                                 <td>{{$result->created_at}}</td>
                             </tr>
                         @endforeach
+                        @if($currency)
                         <tr>
                             <td>Total:${{$results->sum('amount').' '.$currency}}</td>
                         </tr>
+                        @endif
                         </tbody>
 
 

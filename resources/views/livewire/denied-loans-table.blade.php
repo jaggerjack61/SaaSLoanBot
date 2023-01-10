@@ -20,6 +20,7 @@
                             <th>Name</th>
                             <th>Amount</th>
                             <th>Duration</th>
+                            <th>Denied By</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -30,6 +31,7 @@
                                     <td>{{$result->owner->name}}</td>
                                     <td>{{$result->amount.' '.$result->currency}}</td>
                                     <td>{{$result->due_date.' Months'}}</td>
+                                    <td>{{$result->handler->name}}</td>
                                     <td>
                                     <span wire:loading.remove wire:target="approveLoan">
                                      <a href="#" class="btn btn-success" wire:click="approveLoan('{{$result->id}}')">Approve</a>
