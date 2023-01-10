@@ -229,9 +229,15 @@
                                 <div class="card mb-4">
                                     <div class="card-body">
                                         <h5 class="card-title">{{$customer->name}}</h5>
-                                        <div class="card-subtitle text-muted mb-3">{{$customer->phone_no}}</div>
+                                        <div class="card-subtitle text-muted mb-3">Phone:+{{$customer->phone_no}}</div>
                                         <p class="card-text">
-
+                                            Bank:{{$customer->bank}}
+                                        </p>
+                                        <p class="card-text">
+                                            Account Number:{{$customer->account_number}}
+                                        </p>
+                                        <p class="card-text">
+                                            EC Number:{{$customer->EC}}
                                         </p>
                                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#viewCustomerModal" onclick="
                                         loadImages('{{$customer->phone_no}}')" class="card-link">View ID and Payslip</a>
@@ -240,7 +246,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card">
-                                    <h5 class="card-header">{{$results->where('status','paid')->count()}} Loans </h5>
+                                    <h5 class="card-header">{{$results->count()}} Loans </h5>
                                     <div class="table-responsive text-nowrap">
                                         <table class="table table-hover">
                                             <thead>
@@ -260,7 +266,7 @@
                                             <tbody>
                                             {{--                        {{dd($results)}}--}}
                                             @foreach($results as $result)
-                                                @if($result->status == 'paid')
+
                                                     <tr>
 
                                                         <td>{{$result->amount.' '.$result->currency}}</td>
@@ -296,7 +302,7 @@
 
 
                                                     </tr>
-                                                @endif
+
                                             @endforeach
                                             </tbody>
 
