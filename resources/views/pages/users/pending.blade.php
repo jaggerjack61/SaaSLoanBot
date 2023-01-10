@@ -194,9 +194,9 @@
                     <span class="menu-header-text">Reports</span>
                 </li>
                 <li class="menu-item">
-                    <a href="tables-basic.html" class="menu-link">
+                    <a href="{{route('show-payments-report')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-abacus"></i>
-                        <div data-i18n="Tables">Total Amount Loaned</div>
+                        <div data-i18n="Tables">Payments Report</div>
                     </a>
                 </li>
                 <li class="menu-item">

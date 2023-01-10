@@ -16,7 +16,7 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Registered Users</title>
+    <title>Pending Loans</title>
 
     <meta name="description" content="" />
 
@@ -144,7 +144,7 @@
                         <div data-i18n="Tables">Pending Users</div>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{route('registered-users')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-user-check"></i>
                         <div data-i18n="Tables">Registered Users</div>
@@ -159,7 +159,7 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Loans</span>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="{{route('pending-loans')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Pending Loans</div>
@@ -193,7 +193,7 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Reports</span>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="{{route('show-payments-report')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-abacus"></i>
                         <div data-i18n="Tables">Payments Report</div>
@@ -224,7 +224,7 @@
 
 
             <!-- Content -->
-            <livewire:registered-users-table />
+            <livewire:reports.payments-report-table />
 
 
             <!-- Content wrapper -->
@@ -236,35 +236,6 @@
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 
-<div class="modal fade" id="viewCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h4>Identification</h4>
-                <div class="row">
-                    <img id="identification" />
-                    <h4>Payslip</h4>
-                </div>
-                <div class="row">
-                    <img id="payslip" />
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<!-- / Layout wrapper -->
-
-<script>
-    function loadImages(number){
-        document.getElementById('identification').src='/customers/'+number+'/id.jpg';
-        document.getElementById('payslip').src='/customers/'+number+'/payslip.jpg';
-    }
-</script>
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->

@@ -194,11 +194,12 @@
                     <span class="menu-header-text">Reports</span>
                 </li>
                 <li class="menu-item">
-                    <a href="tables-basic.html" class="menu-link">
+                    <a href="{{route('show-payments-report')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-abacus"></i>
-                        <div data-i18n="Tables">Total Amount Loaned</div>
+                        <div data-i18n="Tables">Payments Report</div>
                     </a>
                 </li>
+
                 <li class="menu-item">
                     <a href="tables-basic.html" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-abacus"></i>
@@ -289,7 +290,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span>Registered Users</span>
+                                            <span>Registered Clients</span>
                                             <h3 class="card-title mb-2">{{$customers->where('status','registered')->count()}}</h3>
                                             <small class="text-success fw-semibold">{{$customers->where('status','registered')->count()/$customers->count()*100}}%</small>
                                         </div>
@@ -323,7 +324,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span>Denied Users</span>
+                                            <span>Denied Clients</span>
 
                                             <h3 class="card-title mb-2">{{$customers->where('status','denied')->count()}}</h3>
                                             <small class="text-danger fw-semibold">{{$customers->where('status','denied')->count()/$customers->count()*100}}%</small>
@@ -378,9 +379,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span class="d-block mb-1">Total Loaned:USD</span>
+                                            <span class="d-block mb-1">Total USD Loaned</span>
                                             <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>Capital Out</small>
-                                            <h3 class="card-title text-nowrap mb-2">USD{{$loans->where('currency','USD')->sum('amount')}}</h3>
+                                            <h5 class="card-title text-nowrap mb-2">USD{{$usdOut}}</h5>
 
                                         </div>
                                     </div>
@@ -411,7 +412,7 @@
                                             </div>
                                             <span class="fw-semibold d-block mb-1">Total ZWL Loaned</span>
                                             <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>Capital Out</small>
-                                            <h3 class="card-title text-nowrap mb-2">ZWL{{$loans->where('currency','RTGS')->sum('amount')}}</h3>
+                                            <h5 class="card-title text-nowrap mb-2">ZWL{{$zwlOut}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -443,7 +444,7 @@
                                             </div>
                                             <span class="fw-semibold d-block mb-1">Total USD Paid</span>
                                             <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>Capital In</small>
-                                            <h3 class="card-title text-nowrap mb-2">USD{{$usdIn}}</h3>
+                                            <h5 class="card-title text-nowrap mb-2">USD{{$usdIn}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -474,13 +475,13 @@
                                             </div>
                                             <span class="fw-semibold d-block mb-1">Total ZWL Paid</span>
                                             <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>Capital In</small>
-                                            <h3 class="card-title text-nowrap mb-2">ZWL{{$zwlIn}}</h3>
+                                            <h5 class="card-title text-nowrap mb-2">ZWL{{$zwlIn}}</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- </div>
                 <div class="row"> -->
-                                
+
                             </div>
                         </div>
                     </div>

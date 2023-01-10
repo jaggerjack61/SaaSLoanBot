@@ -33,9 +33,11 @@ class MainController extends Controller
                 }
             }
         }
+        $usdOut=LoanHistory::where('currency','USD')->whereIn('status',['approved','paid','defaulted'])->sum('amount');
+        $zwlOut=LoanHistory::where('currency','RTGS')->whereIn('status',['approved','paid','defaulted'])->sum('amount');
 
 
-        return view('pages.dashboard',compact('customers','loans','payments','zwlIn','usdIn'));
+        return view('pages.dashboard',compact('customers','loans','payments','zwlIn','usdIn','usdOut','zwlOut'));
     }
     public function showPendingUsers()
     {

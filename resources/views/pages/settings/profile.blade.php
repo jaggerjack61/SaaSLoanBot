@@ -16,7 +16,7 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Registered Users</title>
+    <title>Profile</title>
 
     <meta name="description" content="" />
 
@@ -50,7 +50,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
-    @livewireStyles
+
 </head>
 
 <body>
@@ -144,7 +144,7 @@
                         <div data-i18n="Tables">Pending Users</div>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{route('registered-users')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-user-check"></i>
                         <div data-i18n="Tables">Registered Users</div>
@@ -221,13 +221,107 @@
         <!-- Layout container -->
         <div class="layout-page">
 
+            <div class="content-wrapper">
 
+                @include('layouts.includes.table-header-basic')
 
             <!-- Content -->
-            <livewire:registered-users-table />
+            <div class="col-xl m-5">
+                <div class="card mb-4">
+                    @if(session()->has('error'))
+
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            {{ session()->get('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
 
 
-            <!-- Content wrapper -->
+                    @elseif(session()->has('success'))
+
+
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            {{ session()->get('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                    @endif
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Edit Profile</h5>
+                        <small class="text-muted float-end">Some fields cannot be changed.</small>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{route('save-profile')}}" method="post">
+                            @csrf
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Name</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                              ><i class="bx bx-user"></i
+                                  ></span>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="basic-icon-default-fullname"
+                                            name="name"
+                                            value="{{auth()->user()->name}}"
+                                            aria-describedby="basic-icon-default-fullname2"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Email</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                        <input
+                                            type="text"
+                                            id="basic-icon-default-email"
+                                            class="form-control"
+                                            name="email"
+                                            value="{{auth()->user()->email}}"
+                                            aria-describedby="basic-icon-default-email2"
+                                            disabled
+                                        />
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 form-label" for="basic-icon-default-phone">Password</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-phone2" class="input-group-text"
+                              ><i class="bx bx-lock"></i
+                                  ></span>
+                                        <input
+                                            type="text"
+                                            id="basic-icon-default-phone"
+                                            class="form-control phone-mask"
+                                            name="pass"
+                                            placeholder="Leave blank to indicate no chnange to your password"
+
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-end">
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+                <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
     </div>
@@ -236,35 +330,7 @@
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 
-<div class="modal fade" id="viewCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h4>Identification</h4>
-                <div class="row">
-                    <img id="identification" />
-                    <h4>Payslip</h4>
-                </div>
-                <div class="row">
-                    <img id="payslip" />
-                </div>
-            </div>
 
-        </div>
-    </div>
-</div>
-<!-- / Layout wrapper -->
-
-<script>
-    function loadImages(number){
-        document.getElementById('identification').src='/customers/'+number+'/id.jpg';
-        document.getElementById('payslip').src='/customers/'+number+'/payslip.jpg';
-    }
-</script>
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
@@ -286,9 +352,6 @@
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-@livewireScripts
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<x-livewire-alert::scripts />
 </body>
 </html>

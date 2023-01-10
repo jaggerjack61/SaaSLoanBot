@@ -84,7 +84,7 @@ class ListMessageService
         $customer=Customer::where('phone_no',$this->receiver->getNumber($this->data))->first();
         $text = new TextMessageService($this->data);
         $response = $this->getMessage();
-        if($response=='1m'){
+        if($response=='1m' and $customer->message_status=='loan_duration'){
             $customer->message_status='none';
             $loan=LoanHistory::where('customer_id',$customer->id)
                 ->where('status','in-progress')
@@ -95,7 +95,7 @@ class ListMessageService
             $loan->save();
             $text->send('Your loan application is pending approval.');
         }
-        elseif($response=='2m'){
+        elseif($response=='2m' and $customer->message_status=='loan_duration'){
             $customer->message_status='none';
             $loan=LoanHistory::where('customer_id',$customer->id)
                 ->where('status','in-progress')
@@ -106,7 +106,7 @@ class ListMessageService
             $loan->save();
             $text->send('Your loan application is pending approval.');
         }
-        elseif($response=='3m'){
+        elseif($response=='3m' and $customer->message_status=='loan_duration'){
             $customer->message_status='none';
             $loan=LoanHistory::where('customer_id',$customer->id)
                 ->where('status','in-progress')
@@ -117,7 +117,7 @@ class ListMessageService
             $loan->save();
             $text->send('Your loan application is pending approval.');
         }
-        elseif($response=='4m'){
+        elseif($response=='4m' and $customer->message_status=='loan_duration'){
             $customer->message_status='none';
             $loan=LoanHistory::where('customer_id',$customer->id)
                 ->where('status','in-progress')
@@ -128,7 +128,7 @@ class ListMessageService
             $loan->save();
             $text->send('Your loan application is pending approval.');
         }
-        elseif($response=='5m'){
+        elseif($response=='5m' and $customer->message_status=='loan_duration'){
             $customer->message_status='none';
             $loan=LoanHistory::where('customer_id',$customer->id)
                 ->where('status','in-progress')
@@ -139,7 +139,7 @@ class ListMessageService
             $loan->save();
             $text->send('Your loan application is pending approval.');
         }
-        elseif($response=='6m'){
+        elseif($response=='6m' and $customer->message_status=='loan_duration'){
             $customer->message_status='none';
             $loan=LoanHistory::where('customer_id',$customer->id)
                 ->where('status','in-progress')

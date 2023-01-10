@@ -86,8 +86,11 @@ class ButtonMessageService
             }
             elseif($customer->status=='registered'){
                 $loan=LoanHistory::where('customer_id',$customer->id)->latest()->first();
-                if($loan->status=='in-progress'){
+                if($loan->status=='approved'){
                     $this->text->send('You have not finished paying back your loan of $'.$loan->amount.' '.$loan->currency.'.');
+                }
+                if($loan->status=='pending'){
+                    $this->text->send('You already have a loan of $'.$loan->amount.' '.$loan->currency.' that is pending approval.');
                 }
                 elseif($loan->status=='defaulted'){
                     $this->text->send('You have defaulted a loan before. You are no longer qualified to apply for loans.');

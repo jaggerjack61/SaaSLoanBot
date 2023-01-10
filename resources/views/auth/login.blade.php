@@ -60,6 +60,23 @@
         <div class="authentication-inner">
             <!-- Register -->
             <div class="card">
+                @if(session()->has('error'))
+
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        {{ session()->get('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+
+                @elseif(session()->has('success'))
+
+
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        {{ session()->get('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                @endif
                 <div class="card-body">
                     <!-- Logo -->
                     <div class="app-brand justify-content-center">
@@ -126,17 +143,7 @@
                     <h4 class="mb-2">Welcome to the admin dashboard 👋</h4>
                     <p class="mb-4">Please sign-in to your account to begin.</p>
 
-                    @if(session()->has('error'))
 
-                        <p class="text-danger">{{ session()->get('error') }}</p>
-
-
-                    @elseif(session()->has('success'))
-
-
-                        <p>{{ session()->get('success') }}</p>
-
-                        @endif
 
                     <form id="formAuthentication" class="mb-3" action="{{route('login')}}" method="POST">
                         @csrf
