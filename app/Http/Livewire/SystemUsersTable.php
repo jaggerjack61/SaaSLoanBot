@@ -19,6 +19,7 @@ class SystemUsersTable extends Component
     {
         $results=User::where('name','LIKE','%'.$this->search.'%')
             ->orWhere('access','LIKE','%'.$this->search.'%')
+            ->orWhere('email','LIKE','%'.$this->search.'%')
             ->orWhere('status','LIKE','%'.$this->search.'%')
             ->paginate(30);
         return view('livewire.system-users-table',compact('results'));
