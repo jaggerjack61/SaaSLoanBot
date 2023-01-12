@@ -64,6 +64,7 @@ class ApprovedLoansTable extends Component
         $ledger=PaymentLedger::create([
             'loan_id' => $this->loanId,
             'amount' => $this->amount,
+            'handled_by'=>auth()->user()->id,
             'notes'=>$this->notes
         ]);
         $ledger->save();
@@ -83,6 +84,7 @@ class ApprovedLoansTable extends Component
     {
         $loan=LoanHistory::find($id);
         $loan->status = 'defaulted';
+        $loan->handled_by=auth()->user()->id;
         $loan->save();
         $this->alert('error', 'Loan has been marked as defaulted',[
             'position' => 'center',
@@ -99,6 +101,7 @@ class ApprovedLoansTable extends Component
     {
         $loan=LoanHistory::find($id);
         $loan->status = 'paid';
+        $loan->handled_by=auth()->user()->id;
         $loan->save();
         $this->alert('success', 'Loan has been marked as completed',[
             'position' => 'center',

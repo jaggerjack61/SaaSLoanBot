@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
+    public function index()
+    {
+        if(auth()->user()){
+            return redirect()->route('dashboard');
+        }
+        else{
+            return redirect()->route('show-login');
+        }
+    }
     public function showDashboard(){
         $customers=Customer::all();
         $loans=LoanHistory::all();

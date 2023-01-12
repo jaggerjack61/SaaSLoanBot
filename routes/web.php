@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[MainController::class,'index'] );
 
 Route::controller(AuthController::class)->group(function(){
     Route::get('login','showLogin')->name('show-login');
@@ -66,6 +64,7 @@ Route::middleware('auth')->group(function(){
             Route::get('profile','showProfile')->name('show-profile');
             Route::post('profile','saveProfile')->name('save-profile');
             Route::get('admin','showAdmin')->name('show-admin');
+            Route::post('admin','newUser')->name('new-user');
         });
     });
 

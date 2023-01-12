@@ -56,6 +56,14 @@
                             <span class="align-middle">My Profile</span>
                         </a>
                     </li>
+                    @if(auth()->user()->access=='admin')
+                        <li>
+                            <a class="dropdown-item" href="{{route('show-admin')}}">
+                                <i class="bx bx-user me-2"></i>
+                                <span class="align-middle">Admin Panel</span>
+                            </a>
+                        </li>
+                    @endif
 
                     <li>
                         <a class="dropdown-item" href="{{route('logout')}}">

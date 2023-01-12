@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('loan_id');
             $table->string('amount');
             $table->string('notes')->nullable();
-            $table->string('currency')->nullable();
+            $table->string('handled_by');
             $table->timestamps();
         });
     }

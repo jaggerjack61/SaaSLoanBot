@@ -242,7 +242,7 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            {{$result->handler->name}}
+                                                            {{optional($result->handler)->name}}
                                                         </td>
 
 
@@ -292,17 +292,17 @@
                     <div>
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                <th>Amount</th>
+                            <tr><th>Amount</th>
                                 <th>Note</th>
-                                <th>Date</th>
-                            </tr>
+                                <th>Handled By</th>
+                                <th>Date</th></tr>
                             </thead>
                             <tbody>
                             @foreach($payments->where('loan_id',$result->id) as $payment)
                                 <tr>
-                                    <td>{{$payment->amount}}</td>
-                                    <td>{{$payment->notes}}
+                                    <td>{{$payment->amount}}{{$payment->loan->currency}}</td>
+                                    <td>{{$payment->notes}}</td>
+                                    <td>{{$payment->handler->name}}</td>
                                     <td>{{$payment->created_at}}</td>
                                 </tr>
                             @endforeach

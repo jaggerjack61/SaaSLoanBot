@@ -186,7 +186,7 @@
                                                 and their loans as well as view detailed reports.
                                             </p>
 
-                                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Reports</a>
+                                            <a href="{{route('show-payments-report')}}" class="btn btn-sm btn-outline-primary">View Reports</a>
                                         </div>
                                     </div>
                                     <div class="col-sm-5 text-center text-sm-left">

@@ -35,10 +35,33 @@ class SettingsController extends Controller
         catch(\Exception $e){
             return back()->with('error', $e->getMessage());
         }
+    }
 
+    public function showAdmin()
+    {
+        return view('pages.settings.user-management');
+    }
 
+    public function newUser(Request $request)
+    {
+        if($request->password != $request->password_confirmation){
+            return back()->with('error','Passwords do not match.');
+        }
 
-
+        try{
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'access' => $request->access,
+                'status' => 'active'
+            ]);
+            return back()->with('success','User created successfully');
+        }
+        catch (\Exception $e){
+            return back()->with('error',$e->getMessage());
+        }
 
     }
+
 }

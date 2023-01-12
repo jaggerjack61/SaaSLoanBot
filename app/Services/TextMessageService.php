@@ -97,15 +97,23 @@ class TextMessageService
             }
 
             elseif($customer->message_status=='loan_amount'){
-                $loan = LoanHistory::where('customer_id',$customer->id)
-                    ->where('status','in-progress')
-                    ->latest()
-                    ->first();
-                $loan->amount=$this->getMessage();
-                $loan->save();
-                $customer->message_status='loan_duration';
-                $customer->save();
-                $this->sendPeriods($list);
+                if(is_numeric($this->getMessage())){
+                    $loan = LoanHistory::where('customer_id',$customer->id)
+                        ->where('status','in-progress')
+                        ->latest()
+                        ->first();
+                    $loan->amount=$this->getMessage();
+                    $loan->save();
+                    $customer->message_status='loan_duration';
+                    $customer->save();
+                    $this->sendPeriods($list);
+                }
+                else{
+                    $button->send([$this->config->getCompany(),'Please enter the amount you want to borrow as a number eg 5000 .','Loan Application'],[
+                        ['id'=>'cancel','title'=>'Cancel']
+                    ]);
+                }
+
 
             }
 
