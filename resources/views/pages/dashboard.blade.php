@@ -67,7 +67,7 @@
                                     </div>
                                     <span>Registered Clients</span>
                                     <h3 class="card-title mb-2">{{$customers->where('status','registered')->count()}}</h3>
-                                    <small class="text-success fw-semibold">{{$customers->where('status','registered')->count()/$customers->count()*100}}%</small>
+                                    <small class="text-success fw-semibold">@if($customers->count()) {{$customers->where('status','registered')->count()/($customers->count())*100}}% @else 0% @endif</small>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                     <span>Denied Clients</span>
 
                                     <h3 class="card-title mb-2">{{$customers->where('status','denied')->count()}}</h3>
-                                    <small class="text-danger fw-semibold">{{$customers->where('status','denied')->count()/$customers->count()*100}}%</small>
+                                    <small class="text-danger fw-semibold">@if($customers->count()) {{$customers->where('status','denied')->count()/$customers->count()*100}}% @else 0% @endif</small>
                                 </div>
                             </div>
                         </div>
