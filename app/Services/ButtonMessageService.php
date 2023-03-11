@@ -89,7 +89,7 @@ class ButtonMessageService
                 if($loan->status=='approved'){
                     $this->text->send('You have not finished paying back your loan of $'.$loan->amount.' '.$loan->currency.'.');
                 }
-                if($loan->status=='pending'){
+                elseif($loan->status=='pending'){
                     $this->text->send('You already have a loan of $'.$loan->amount.' '.$loan->currency.' that is pending approval.');
                 }
                 elseif($loan->status=='defaulted'){
